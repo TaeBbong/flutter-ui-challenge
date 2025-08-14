@@ -46,7 +46,33 @@ class _MainPageState extends State<MainPage> {
             duration: const Duration(milliseconds: 450),
             child: SizedBox.expand(
               key: ValueKey(_index),
-              child: Image.asset(_images[_index], fit: BoxFit.cover),
+              // child: Image.asset(_images[_index], fit: BoxFit.cover),
+              child: Container(
+                color: Colors.white,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                      height: 650,
+                      child: Image.asset(_images[_index], fit: BoxFit.cover),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: MediaQuery.of(context).size.height - 650,
+                      height: 150,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [Colors.white, Colors.white.withAlpha(0)],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           SafeArea(
@@ -54,7 +80,7 @@ class _MainPageState extends State<MainPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  height: 640,
+                  height: 520,
                   width: 320,
                   child: PageView.builder(
                     controller: _pageCtrl,
@@ -83,17 +109,21 @@ class _MainPageState extends State<MainPage> {
                     },
                   ),
                 ),
-                const SizedBox(height: 12),
-                // _Dots(
-                //   count: _images.length,
-                //   index: _index,
-                //   onTap:
-                //       (i) => _pageCtrl.animateToPage(
-                //         i,
-                //         duration: const Duration(milliseconds: 300),
-                //         curve: Curves.easeOut,
-                //       ),
-                // ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: 250,
+                  child: FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.black87,
+                      minimumSize: Size.fromHeight(40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: const Text('BUY TICKET'),
+                  ),
+                ),
                 const SizedBox(height: 24),
               ],
             ),
@@ -116,8 +146,8 @@ class _CarouselCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white.withOpacity(0.9),
-      elevation: 8,
+      color: Colors.white.withAlpha(235),
+      elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(25),
@@ -131,46 +161,15 @@ class _CarouselCard extends StatelessWidget {
               ),
               child: Image.asset(_images[index], fit: BoxFit.cover),
             ),
+            const SizedBox(height: 16),
             const Text(
-              '여기에 Column 형태의 컨텐츠를 배치하세요.\n'
-              '버튼, 텍스트, 입력폼 등 자유롭게.',
+              'Good Boys',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            FilledButton(onPressed: () {}, child: const Text('Action')),
           ],
         ),
       ),
-    );
-  }
-}
-
-class _Dots extends StatelessWidget {
-  final int count;
-  final int index;
-  final void Function(int) onTap;
-  const _Dots({required this.count, required this.index, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      children: List.generate(count, (i) {
-        final selected = i == index;
-        return GestureDetector(
-          onTap: () => onTap(i),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: selected ? 18 : 8,
-            height: 8,
-            decoration: BoxDecoration(
-              color: selected ? Colors.white : Colors.white70,
-              borderRadius: BorderRadius.circular(99),
-              border: Border.all(color: Colors.white.withOpacity(0.9)),
-            ),
-          ),
-        );
-      }),
     );
   }
 }
