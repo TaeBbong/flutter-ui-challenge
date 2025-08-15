@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pages/main_page.dart';
+import 'chal1/main_page.dart';
 
 void main() {
   runApp(const MainApp());
