@@ -7,6 +7,9 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
+/// Movie Card Swipe
+///
+/// Inspired by https://pin.it/26mwq43JD
 class _MainPageState extends State<MainPage> {
   // final _pageCtrl = PageController(viewportFraction: 0.9);
   final _pageCtrl = PageController();
